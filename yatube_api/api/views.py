@@ -1,7 +1,7 @@
 from rest_framework import permissions, viewsets
 
-from posts.models import Post, User
-from .serializers import PostSerializer, UserSerializer
+from posts.models import Group, Post, User
+from .serializers import GroupSerializer, PostSerializer, UserSerializer
 from .permissions import IsAuthorOrReadOnly
 
 
@@ -23,3 +23,10 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAdminUser]
+
+
+class GroupViewSet(viewsets.ReadOnlyModelViewSet):
+    """Вьюсет для чтения информации о группах."""
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
