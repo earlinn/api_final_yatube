@@ -48,7 +48,7 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class FollowSerializer(serializers.ModelSerializer):
-    """"""
+    """Сериализатор для модели Follow."""
 
     class Meta:
         model = Follow
