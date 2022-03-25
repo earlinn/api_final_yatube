@@ -57,6 +57,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 
 class FollowViewSet(viewsets.ModelViewSet):
+    """Вьюсет для создания и получения информации о подписках на авторов."""
     serializer_class = FollowSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ('following__username',)
