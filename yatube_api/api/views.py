@@ -3,7 +3,7 @@ from rest_framework import permissions, viewsets
 from rest_framework.pagination import LimitOffsetPagination
 
 from posts.models import Group, Post, User
-from .serializers import CommentSerializer, GroupSerializer
+from .serializers import CommentSerializer, FollowSerializer, GroupSerializer
 from .serializers import PostSerializer, UserSerializer
 from .permissions import IsAuthorOrReadOnly
 
@@ -54,3 +54,16 @@ class CommentViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
         serializer.save(author=self.request.user, post=post)
+
+
+class FollowViewSet(viewsets.ModelViewSet):
+    serializer_class = FollowSerializer
+
+    def get_queryset(self):
+        current_user = get_object_or_404(User, username=self.request.user)
+        new_queryset = current_user.follower.all()
+        return new_queryset
+
+    def perform_create(self, serializer):
+        current_user = get_object_or_404(User, username=self.request.user)
+        serializer.save(user=current_user)
