@@ -56,14 +56,9 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user, post=post)
 
 
-class CreateAndListViewSet(
+class FollowViewSet(
     mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
 ):
-    """Базовый вьюсет для создания объектов и получения их списка."""
-    pass
-
-
-class FollowViewSet(CreateAndListViewSet):
     """Вьюсет для создания и получения информации о подписках на авторов."""
     serializer_class = FollowSerializer
     permission_classes = [permissions.IsAuthenticated]
